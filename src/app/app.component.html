@@ -182,8 +182,8 @@
       [course]="course"
     >
       <!-- content part of the course-card component -->
-      <img #courseImage width="300" alt="Angular Logo" [src]="course.iconUrl" /> -->
-      <h5>Total Lessons: {{ course.lessonsCount }}</h5>
+    
+      <course-image [src]="course.iconUrl"></course-image>
       <h5>Price: {{ course.price | currency }}</h5>
       <div class="course-description">
         {{ course.longDescription }}

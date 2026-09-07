@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output, output } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, Output, output, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { Course } from '../model/course';
 import {CommonModule} from '@angular/common';
+import { CourseImageComponent } from '../course-image/course-image.component';
 
 @Component({
   selector: 'course-card',
@@ -13,7 +14,7 @@ import {CommonModule} from '@angular/common';
   }
 })
 
-export class CourseCardComponent {
+export class CourseCardComponent implements OnInit, AfterViewInit {
   @Input()
   course!: Course;
 
@@ -26,7 +27,15 @@ export class CourseCardComponent {
   @Output('courseSelected')
   courseSelected = new EventEmitter<Course>();
 
+  @ContentChild(CourseImageComponent, {read: ElementRef})
+  image!: CourseImageComponent;
+
   constructor() { }
+  ngAfterViewInit(): void {
+    if (this.image) {
+      console.log('Course image content initialized:', this.image);
+    }
+  }
 
   ngOnInit(): void {
   }
