@@ -1,0 +1,18 @@
+.user-profile {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.user-icon {
+	width: 30px;
+	height: 30px;
+	fill: none;
+	stroke: currentColor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 1.8;
+}

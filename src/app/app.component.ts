@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import {COURSES} from '../db-data';
 import { Course } from './model/course';
 import { CourseCardComponent } from './course-card/course-card.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @Component({
     selector: 'app-root',
@@ -26,8 +27,13 @@ export class AppComponent implements AfterViewInit {
     rate = 0.5;
     course = COURSES[0];
 
+    AppTitle = 'Angular Course Learning';
+
     @ViewChildren(CourseCardComponent)
     cards!: QueryList<CourseCardComponent>;
+
+    @ViewChildren(UserProfileComponent)
+    userProfiles!: QueryList<UserProfileComponent>;
 
     @ViewChild('cardRef')
     card!: CourseCardComponent;

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { FormsModule } from '@angular/forms';
 import { CourseImageComponent } from "./course-image/course-image.component";
+import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CourseImageComponent } from "./course-image/course-image.component";
     FormsModule,
     CourseCardComponent // ← KLÍČOVÁ OPRAVA
     ,
-    CourseImageComponent
+    CourseImageComponent,
+    UserProfileComponent
 ],
   providers: [],
   bootstrap: [AppComponent]

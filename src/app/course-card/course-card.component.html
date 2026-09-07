@@ -6,8 +6,14 @@
   <div class="course-title" [ngStyle]="{'text-decoration': 'underline'}">
       {{ index }} {{ course.description }}
   </div>
+
+  <ng-template #blankImage>
+
+    <p class="warn">No image is available yet</p>
+    <img src="assets/empty-image.png">
+  </ng-template>
   
-  <ng-content select="course-image"></ng-content>
+  <ng-content select="course-image" *ngIf="course.iconUrl; else blankImage"></ng-content>
     
   
 
