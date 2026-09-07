@@ -1,0 +1,211 @@
+<div class="top-menu">
+  <img
+    class="logo"
+    src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png"
+  />
+</div>
+<!-- <div class="demo">
+  <div>
+    {{ title | titlecase }}
+    StartDate is {{ startDate | date: "MM/dd/yyyy" }} Price is
+    {{ price | currency: "CZK" }} Pass Percentage is
+    {{ rate | percent: "1.2-2" }}
+  </div>
+</div> -->
+
+<div class="actions">
+  <button class="add-course-button" (click)="openAddCourseDialog()">
+    Add New Course
+  </button>
+</div>
+
+<dialog #addCourseDialog class="add-course-dialog">
+  <form
+    class="dialog-form"
+    #addCourseForm="ngForm"
+    (ngSubmit)="onSaveNewCourse(addCourseForm)"
+  >
+    <h2>Add New Course</h2>
+
+    <div class="form-row">
+      <label for="new-course-id">ID</label>
+      <input
+        id="new-course-id"
+        type="text"
+        [value]="newCourseForm.id"
+        readonly
+      />
+    </div>
+
+    <div class="form-row">
+      <label for="new-course-description">Description</label>
+      <input
+        id="new-course-description"
+        type="text"
+        name="description"
+        #descriptionModel="ngModel"
+        [(ngModel)]="newCourseForm.description"
+        required
+      />
+      @if (
+        (descriptionModel.touched || addCourseForm.submitted) &&
+        descriptionModel.invalid
+      ) {
+        <p class="validation-error">Description is required.</p>
+      }
+    </div>
+
+    <div class="form-row">
+      <label for="new-course-icon">Icon Url (Image Picker)</label>
+      <input
+        id="new-course-icon"
+        type="file"
+        accept="image/*"
+        (change)="onIconSelected($event)"
+      />
+      @if (showIconRequiredError) {
+        <p class="validation-error">
+          Please select an image file for the icon.
+        </p>
+      }
+      @if (newCourseForm.iconUrl) {
+        <img
+          class="icon-preview"
+          [src]="newCourseForm.iconUrl"
+          alt="Selected icon preview"
+        />
+      }
+    </div>
+
+    <div class="form-row">
+      <label for="new-course-long-description">Long Description</label>
+      <textarea
+        id="new-course-long-description"
+        name="longDescription"
+        rows="4"
+        #longDescriptionModel="ngModel"
+        [(ngModel)]="newCourseForm.longDescription"
+        required
+      ></textarea>
+      @if (
+        (longDescriptionModel.touched || addCourseForm.submitted) &&
+        longDescriptionModel.invalid
+      ) {
+        <p class="validation-error">Long description is required.</p>
+      }
+    </div>
+
+    <div class="form-row">
+      <label for="new-course-category">Category</label>
+      <select
+        id="new-course-category"
+        name="category"
+        #categoryModel="ngModel"
+        [(ngModel)]="newCourseForm.category"
+        required
+      >
+        @for (category of existingCourseCategories; track category) {
+          <option [value]="category">{{ category }}</option>
+        }
+      </select>
+      @if (
+        (categoryModel.touched || addCourseForm.submitted) &&
+        categoryModel.invalid
+      ) {
+        <p class="validation-error">Category is required.</p>
+      }
+    </div>
+
+    <div class="form-row">
+      <label for="new-course-lessons">Lessons Count</label>
+      <input
+        id="new-course-lessons"
+        type="text"
+        name="lessonsCount"
+        #lessonsCountModel="ngModel"
+        [(ngModel)]="newCourseForm.lessonsCount"
+        (input)="onLessonsCountInput()"
+        required
+      />
+      @if (
+        (lessonsCountModel.touched || addCourseForm.submitted) &&
+        lessonsCountModel.invalid
+      ) {
+        <p class="validation-error">Lessons count is required.</p>
+      }
+      @if (showLessonsNumericError) {
+        <p class="validation-error">Lessons count must be a numeric value.</p>
+      }
+    </div>
+
+    <div class="dialog-actions">
+      <button type="button" class="secondary" (click)="closeAddCourseDialog()">
+        Cancel
+      </button>
+      <button type="submit" class="primary">Save Course</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="filters">
+  <label for="category-select">Category:</label>
+  <select
+    id="category-select"
+    [value]="selectedCategory"
+    (change)="onCategoryChanged($any($event.target).value)"
+  >
+    @for (category of categories; track category) {
+      <option [value]="category">{{ category }}</option>
+    }
+  </select>
+</div>
+
+<!-- <div *ngFor="let pair of course | keyvalue">
+    <div class="course-pair">
+        <div class="course-key">{{ pair.key }}</div>
+        <div class="course-value">{{ pair.value }}</div>
+    </div>
+</div> -->
+
+<div class="courses" #container>
+  @for (
+    course of filteredCourses;
+    track course.id;
+    let index = $index;
+    let count = $count;
+    let first = $first;
+    let last = $last
+  ) {
+    <course-card
+      [index]="index + 1"
+      (courseSelected)="onCourseSelected($event)"
+      [course]="course"
+    >
+      <!-- content part of the course-card component -->
+      <img #courseImage width="300" alt="Angular Logo" [src]="course.iconUrl" /> -->
+      <h5>Total Lessons: {{ course.lessonsCount }}</h5>
+      <h5>Price: {{ course.price | currency }}</h5>
+      <div class="course-description">
+        {{ course.longDescription }}
+      </div>
+    </course-card>
+
+  } @empty {
+    <div class="no-results">No courses found</div>
+  }
+</div>
+<!-- 
+<div class="courses" #container>
+    <course-card #cardRef
+        (courseSelected)="onCourseSelected($event)"
+        [course]="courses[0]"
+        [index]="1">
+    </course-card>
+
+    <course-card #cardRef1
+        (courseSelected)="onCourseSelected($event)"
+        [course]="courses[1]"
+        [index]="2">
+    </course-card>
+    
+</div> -->
