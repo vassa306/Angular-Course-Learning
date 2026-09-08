@@ -10,6 +10,8 @@
 .user-icon {
 	width: 30px;
 	height: 30px;
+	position: relative;
+	left: 5px;
 	fill: none;
 	stroke: currentColor;
 	stroke-linecap: round;
